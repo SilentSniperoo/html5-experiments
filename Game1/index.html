@@ -1,0 +1,22 @@
+<title>Experiment 2</title>
+<a href="../index.html">Go Home</a><br>
+<canvas id="context" width="500" height="500" style="border:1px solid #000000"></canvas>
+
+<script>
+    var context = document.getElementById("context").getContext("2d");
+    context.font = '30px Arial';
+    var time = 0;
+    var dt = 500;
+
+    setInterval(update, 500);
+
+    function update() {
+        time += dt;
+        logToScreen('Current Time: ' + time);
+    }
+
+    function logToScreen(text) {
+        console.log('Logging "' + text + '" to screen')
+        context.fillText(text, 50, time / 10);
+    }
+</script>
