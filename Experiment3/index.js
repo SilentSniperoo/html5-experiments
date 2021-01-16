@@ -151,7 +151,10 @@ class Mouse extends MouseState {
     }
 
     move(event) {
-        this.point = new Vec2(event.clientX, event.clientY);
+        const canvasRect = canvas.getBoundingClientRect();
+        const x = event.clientX - canvasRect.left;
+        const y = event.clientY - canvasRect.top;
+        this.point = new Vec2(x, y);
         if (this.click) {
             this.click.path.push(this); // Update the current click gesture
         }
@@ -308,6 +311,10 @@ class Player extends Entity {
 const player = new Player(screen.center, 'blue', 30);
 entities.push(player);
 
+for (var i = 0; i < entities.length; ++i) {
+    entities[i].bind();
+}
+
 function update() {
     ctx.clearRect(0, 0, screen.size.x, screen.size.y);
     for (var i = 0; i < entities.length; ++i) {
@@ -316,10 +323,6 @@ function update() {
     for (var i = 0; i < entities.length; ++i) {
         entities[i].draw();
     }
-}
-
-for (var i = 0; i < entities.length; ++i) {
-    entities[i].bind();
 }
 
 function animate() {
